@@ -1,11 +1,11 @@
 const aqua = 200, emocion = 180, alegria = 160, frescura = 150;
 
 var Juana = {
-    productosVendidos: 0,
+    productosVendidos: [0, 0, 0, 0],
     gananciaGenerada: 0
 }
 var Pedro = {
-    productosVendidos: 0,
+    productosVendidos: [0, 0, 0, 0],
     gananciaGenerada: 0
 }
 
@@ -84,13 +84,17 @@ function asignarVentas(){
 }
 
 function asignarVendedor(vendedor){
-    vendedor.productosVendidos += aquaVendida * 1
-    vendedor.productosVendidos += emocionVendida * 1
-    vendedor.productosVendidos += alegriaVendida * 1
-    vendedor.productosVendidos += frescuraVendida * 1
+    vendedor.productosVendidos[0] += aquaVendida * 1
+    vendedor.productosVendidos[1] += emocionVendida * 1
+    vendedor.productosVendidos[2] += alegriaVendida * 1
+    vendedor.productosVendidos[3] += frescuraVendida * 1
     vendedor.gananciaGenerada += gananciaVenta
-    console.log(izq_arriba.innerText + ' ha vendido ' + Juana.productosVendidos + ' productos y ha generado $' + Juana.gananciaGenerada)
-    console.log(izq_abajo.innerText + ' ha vendido ' + Pedro.productosVendidos + ' productos y ha generado $' + Pedro.gananciaGenerada)
+    console.log(izq_arriba.innerText + ' ha vendido ' + Juana.productosVendidos[0] + ' de Aqua, ' + Juana.productosVendidos[1] +
+    ' de Emocion, ' + Juana.productosVendidos[2] + ' de Alegria y ' + Juana.productosVendidos[3] + ' de Frescura y ha generado $' + 
+    Juana.gananciaGenerada)
+    console.log(izq_abajo.innerText + ' ha vendido ' + Pedro.productosVendidos[0] + ' de Aqua, ' + Pedro.productosVendidos[1] +
+    ' de Emocion, ' + Pedro.productosVendidos[2] + ' de Alegria y ' + Pedro.productosVendidos[3] + ' de Frescura y ha generado $' + 
+    Pedro.gananciaGenerada)
     reiniciar()
 }
 
