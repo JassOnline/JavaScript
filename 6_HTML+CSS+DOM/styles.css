@@ -22,3 +22,8 @@ body {
     justify-content: space-evenly;
     flex-grow: 1;
 }
+
+#centro{
+    display: flex;
+    flex-direction: column;
+}

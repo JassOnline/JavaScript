@@ -9,17 +9,20 @@
 </head>
 <body>
     <div class = 'botones'>
-        <button onclick = 'primera()' type = 'button' id = 'izq_arriba' class="btn btn-primary btn-lg">¿Otra operación?</button>
-        <button type="button" id = 'izq_abajo' class="btn btn-primary btn-lg" disabled></button>
+        <button onclick = 'asignarVendedor()' type = 'button' id = 'izq_arriba' class="btn btn-primary btn-lg" disabled>Juana</button>
+        <button onclick = 'asignarVendedor()' type="button" id = 'izq_abajo' class="btn btn-primary btn-lg" disabled>Pedro</button>
     </div>
     <div id = 'pantalla' class = 'container'>
         <h2>Inserte su operación a relizar</h2>
     </div>
     <div class = 'botones'>
-        <button type="button" id = 'der_1' class="btn btn-secondary btn-lg">Venta de Aqua</button>
-        <button type="button" id = 'der_2' class="btn btn-secondary btn-lg">Venta de Emocion</button>
-        <button type="button" id = 'der_3' class="btn btn-secondary btn-lg">Venta de Alegria</button>
-        <button type="button" id = 'der_4' class="btn btn-secondary btn-lg">Venta de Frescura</button>
+        <button onclick = 'ventaAqua()' type="button" id = 'der_1' class="btn btn-secondary btn-lg">Venta de Aqua</button>
+        <button onclick = 'ventaEmocion()' type="button" id = 'der_2' class="btn btn-secondary btn-lg">Venta de Emocion</button>
+        <button onclick = 'ventaAlegria()' type="button" id = 'der_3' class="btn btn-secondary btn-lg">Venta de Alegria</button>
+        <button onclick = 'ventaFrescura()' type="button" id = 'der_4' class="btn btn-secondary btn-lg">Venta de Frescura</button>
+    </div>
+    <div>
+        <button onclick = 'finDeMes()' type = 'button' id = 'centro' class='btn btn-primary btn-lg'>Fin de Mes</button>
     </div>
     <script src = './index.js'></script>
 </body>
