@@ -1,3 +1,45 @@
+// const validatePin = (pin_keys) => {
+//     if(pin_keys.length === 4){ //Validamos la longitud
+//         if(pin_keys.toLocaleString().replaceAll(",","") === "1234"){
+//             //Convertimos el array a string y reemplazamos las ',' y validamos que el resultado sea igual a '####' 
+//             screen.innerText = "PIN correcto. Bienvenido, Sergio";
+//             usuario = 1
+//             setTimeout(()=> {
+//                 operacionRealizar()
+//             }, 2500)
+            
+//         }else if(pin_keys.toLocaleString().replaceAll(",","") ==="2000"){
+//             screen.innerText = "PIN correcto. Bienvenida, Mali";
+//             usuario = 0
+//             setTimeout(()=> {
+//                 operacionRealizar()
+//             }, 2500)
+//         }else if(pin_keys.toLocaleString().replaceAll(",","") ==="8008"){
+//             screen.innerText = "PIN correcto. Bienvenida, Rogue";
+//             usuario = 2
+//             setTimeout(()=> {
+//                 operacionRealizar()
+//             }, 2500)
+//         }else{
+//             screen.innerText = "PIN incorrecto. Vuelva a intentar";
+//             pin = []
+//         }
+//     }
+// };
+
+// keys.addEventListener("click", (event)=> {
+//     if(event.target.id) { 
+//         // Si tiene id va a entrar
+//         // Recogemos el valor del id y hacemos push al array pin
+//         pin.push(event.target.id);
+//         //Ejecutamos la funcion para validar el pin
+//         validatePin(pin);
+//     } else {
+//         console.log("Tecla sin funcion");
+//     }
+//     console.log(pin);
+// });
+
 const screen = document.querySelector(".atm-system__screen");
 const inputCard = document.querySelector(".atm-system__card");
 
@@ -5,7 +47,7 @@ const inputCard = document.querySelector(".atm-system__card");
 //key[0].addEventListener("click", (event) => console.log(event.target.id));
 //key[4].addEventListener("click", (event) => console.log(event.target.id));
 
-var usuario
+var usuario, accion = "pin"
 var cuentas = [
     { nombre: 'Mali', saldo: 200, password: 2000 },
     { nombre: 'Sergio', saldo: 290, password: 1234 },
@@ -17,23 +59,61 @@ let pin =[];
 let state = ""
 let monto = []
 
-const validateMonto = () => {
-    keys.addEventListener("click", (event)=> {
-        if(event.target.id) { 
-            // Si tiene id va a entrar
-            // Recogemos el valor del id y hacemos push al array pin
-            monto.push(event.target.id);
-            //Ejecutamos la funcion para validar el pin
-            validateMonto(monto);
-            console.log(monto)
-        }
-    });
-
-    if(monto_keys + saldo > 990)
-
-    screen.innerText = 'Limite superado. Ingresa un monto menor.'
-    saldo = []
+function reiniciar(){
+    screen.innerText = 'Bienvenido al ATM'
+    document.getElementById('consultar_saldo').disabled = true
+    document.getElementById('consultar_saldo').innerText = ''
+    document.getElementById('ingresar_monto').disabled = true
+    document.getElementById('ingresar_monto').innerText = ''
+    document.getElementById('retirar_monto').disabled = true
+    document.getElementById('retirar_monto').innerText = ''
+    document.getElementById('btn-delete').onclick = borrarPin
+    document.getElementById('btn-success').onclick = validatePin
+    pin = []
+    monto = []
+    accion = "pin"
 }
+
+function borrarPin(){
+    switch(accion){
+        case "pin": {
+            pin.pop()
+            break
+        }
+        case "deposito": {
+            monto.pop()
+            break
+        }
+        case "retiro":{
+            monto.pop()
+            break
+        }
+    }
+}
+
+keys.addEventListener("click", (event)=> {
+    if(event.target.id != "btn-cancel" && event.target.id != "btn-success" && event.target.id != "btn-delete" && event.target.id) {
+        switch(accion){
+            case "pin": {
+                pin.push(event.target.id);
+                break
+            }
+            case "deposito": {
+                monto.push(event.target.id);
+                break
+            }
+            case "retiro":{
+                monto.push(event.target.id);
+                break
+            }
+        }
+            
+    } else {
+        console.log("Tecla sin funcion");
+    }
+    console.log(pin);
+    console.log(monto);
+});
 
 const validatePin = (pin_keys) => {
     if(pin_keys.length === 4){ //Validamos la longitud
@@ -61,8 +141,43 @@ const validatePin = (pin_keys) => {
             screen.innerText = "PIN incorrecto. Vuelva a intentar";
             pin = []
         }
+    }else{
+        screen.innerText = "PIN incorrecto. Vuelva a intentar";
+        pin = []
     }
 };
+
+const validateMonto = () => {
+    cantidad = parseInt(monto.toLocaleString().replaceAll(",",""))
+    //screen.innerText = 'Saldo: ' + cuentas[usuario].saldo
+        if(cantidad + cuentas[usuario].saldo <= 990){
+            cuentas[usuario].saldo += cantidad
+            screen.innerText = "Operación exitosa";
+            setTimeout(()=> {
+                operacionRealizar()
+            }, 2500)
+        }else{
+            //reiniciamos la operacion
+            screen.innerText = "Operación invalida, favor de ingresar un monto menor";
+        }
+        monto = []
+    }
+
+    const validateMontoRetiro = () => {
+        cantidad = parseInt(monto.toLocaleString().replaceAll(",",""))
+        //screen.innerText = 'Saldo: ' + cuentas[usuario].saldo
+            if(cuentas[usuario].saldo - cantidad >= 10){
+                cuentas[usuario].saldo -= cantidad
+                screen.innerText = "Operación exitosa";
+                setTimeout(()=> {
+                    operacionRealizar()
+                }, 2500)
+            }else{
+                //reiniciamos la operacion
+                screen.innerText = "Operación invalida, favor de retirar un monto menor";
+            }
+            monto = []
+        }
 
 function operacionRealizar(){
     screen.innerText = '¿Que operacion desea realizar?'
@@ -83,7 +198,7 @@ function operacionRealizar(){
     document.getElementById('7').disabled = true
     document.getElementById('8').disabled = true
     document.getElementById('9').disabled = true
-    document.getElementById('btn-delete').disabled = true
+    document.getElementById('btn-delete').disabled = false
     document.getElementById('btn-success').disabled = true
 }
 
@@ -99,9 +214,11 @@ function consultarSaldo(){
     document.getElementById('ingresar_monto').innerText = ''
     document.getElementById('retirar_monto').disabled = true
     document.getElementById('retirar_monto').innerText = ''
+    document.getElementById('btn-delete').onclick = operacionRealizar
 }
 
 function retiro(){
+    accion = "retiro"
     screen.innerText = 'Ingrese el monto a retirar. Presiona el boton verde para confirmar'
     document.getElementById('consultar_saldo').disabled = true
     document.getElementById('consultar_saldo').innerText = ''
@@ -121,10 +238,12 @@ function retiro(){
     document.getElementById('9').disabled = false
     document.getElementById('btn-delete').disabled = false
     document.getElementById('btn-success').disabled = false
+    document.getElementById('btn-success').onclick = validateMontoRetiro
+    document.getElementById('btn-delete').onclick = borrarPin
 }
 
 function deposito(){
-    validateMonto
+    accion = "deposito"
     screen.innerText = 'Ingrese el monto a depositar. Presiona el boton verde para confirmar'
     document.getElementById('consultar_saldo').disabled = true
     document.getElementById('consultar_saldo').innerText = ''
@@ -144,20 +263,9 @@ function deposito(){
     document.getElementById('9').disabled = false
     document.getElementById('btn-delete').disabled = false
     document.getElementById('btn-success').disabled = false
+    document.getElementById('btn-success').onclick = validateMonto
+    document.getElementById('btn-delete').onclick = borrarPin
 }
-
-keys.addEventListener("click", (event)=> {
-    if(event.target.id) { 
-        // Si tiene id va a entrar
-        // Recogemos el valor del id y hacemos push al array pin
-        pin.push(event.target.id);
-        //Ejecutamos la funcion para validar el pin
-        validatePin(pin);
-    } else {
-        console.log("Tecla sin funcion");
-    }
-    console.log(pin);
-});
 
 inputCard.addEventListener("click", function () {
     screen.innerText = "Validando tarjeta...";
