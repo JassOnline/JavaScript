@@ -267,17 +267,17 @@ function deposito(){
     document.getElementById('btn-delete').onclick = borrarPin
 }
 
-inputCard.addEventListener("click", function () {
-    screen.innerText = "Validando tarjeta...";
-    setTimeout(()=> {
-        screen.innerText = "Inserte su PIN";
-        state = "login";
-    }, 2500)
-});
+// inputCard.addEventListener("click", function () {
+//     screen.innerText = "Validando tarjeta...";
+//     setTimeout(()=> {
+//         screen.innerText = "Inserte su PIN";
+//         accion = "login";
+//     }, 2500)
+// });
 
-window.addEventListener("load", ()=> {
-    screen.innerText = "Bienvenido al ATM";
-})
+// window.addEventListener("load", ()=> {
+//     screen.innerText = "Bienvenido al ATM";
+// })
 
 // PascalCase -> para clases
 // camelCase -> para variables
@@ -310,8 +310,8 @@ window.addEventListener("load", ()=> {
     //}
 //}
 
-function saludar(nombre, apellido, pais){
-    console.log("Hola ", nombre, apellido, " de ", pais);
-}
+// function saludar(nombre, apellido, pais){
+//     console.log("Hola ", nombre, apellido, " de ", pais);
+// }
 
-saludar("Andres", "Jasso", "Mexico")
+// saludar("Andres", "Jasso", "Mexico")
