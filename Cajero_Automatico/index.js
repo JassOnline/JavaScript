@@ -67,8 +67,8 @@ function reiniciar(){
     document.getElementById('ingresar_monto').innerText = ''
     document.getElementById('retirar_monto').disabled = true
     document.getElementById('retirar_monto').innerText = ''
-    document.getElementById('btn-delete').onclick = borrarPin
-    document.getElementById('btn-success').onclick = validatePin
+    document.getElementById('btn-delete').onclick = function() {borrarPin(pin)}
+    document.getElementById('btn-success').onclick = function() {validatePin(pin)}
     pin = []
     monto = []
     accion = "pin"
@@ -183,11 +183,13 @@ function operacionRealizar(){
     screen.innerText = '¿Que operacion desea realizar?'
     document.getElementById('consultar_saldo').disabled = false
     document.getElementById('consultar_saldo').innerText = 'Consultar saldo'
-    document.getElementById('consultar_saldo').onClick = consultarSaldo
+    document.getElementById('consultar_saldo').onclick = consultarSaldo
     document.getElementById('ingresar_monto').disabled = false
     document.getElementById('ingresar_monto').innerText = 'Hacer un Deposito'
+    document.getElementById('ingresar_monto').onclick = deposito
     document.getElementById('retirar_monto').disabled = false
     document.getElementById('retirar_monto').innerText = 'Hacer un Retiro'
+    document.getElementById('retirar_monto').onclick = retiro
     document.getElementById('0').disabled = true
     document.getElementById('1').disabled = true
     document.getElementById('2').disabled = true

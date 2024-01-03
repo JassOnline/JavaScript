@@ -138,12 +138,24 @@
     background-color: red;
   }
   #btn-success {
-    background-color: green;
+    background-color: rgb(22, 204, 22);
   }
   #btn-delete {
     background-color: yellow;
   }
 
-  .atm-system__card-input:active{
-    background-color: red;
+  .atm-system__keys:active{
+    background-color: rgb(57, 57, 57);
+  }
+
+  #btn-cancel:active{
+    background-color: rgb(143, 0, 0);
+  }
+
+  #btn-success:active{
+    background-color: green
+  }
+
+  #btn-delete:active{
+    background-color: rgb(158, 158, 5)
   }
